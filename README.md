@@ -1,6 +1,6 @@
 # Persistent-Gags-and-Mutes
 
-###The gagging portion of this addon does not work.
+#The gagging portion of this addon does not work at the moment.
 
 An addon for Garry's Mod expanding the capabilities of the mute and gag commands in ULX admin mod.
 
