@@ -3,16 +3,22 @@
 -- These commands are adapted from the votemute and votegag commands in cobalt77's "Custom-ULX-Commands" package (https://github.com/cobalt77/Custom-ULX-Commands)
 
 --ULX tmute command
+--Hook to mute player
+hook.Add( "PlayerSay", "tmutehook", function(ply)
+	if (ply:GetPData( "tmuted" ) and ply:GetPData( "tmuted" ) ~= 0 and ply:GetPData( "tmuted" ) ~= "0" ) then
+		return ""
+	end
+end)
+
 function ulx.tmute( calling_ply, target_ply, minutes)
 	minutes = math.ceil(minutes)
 	target_ply:SetPData("tmuted", minutes)
-	target_ply.tmuted = true
 	ulx.fancyLogAdmin( calling_ply, "#A has muted #T for #i minute(s)", target_ply, minutes )
 end
 local tmute = ulx.command( "Chat", "ulx tmute", ulx.tmute, "!tmute" )
 tmute:defaultAccess( ULib.ACCESS_ADMIN )
 tmute:addParam{ type=ULib.cmds.PlayerArg }
-tmute:addParam{ type=ULib.cmds.NumArg, min=0, max-30, default=3, hint="minutes", ULib.cmds.optional, ULib.cmds.round }
+tmute:addParam{ type=ULib.cmds.NumArg, min=0, max=60, default=3, hint="minutes", ULib.cmds.optional, ULib.cmds.round }
 tmute:help( "Mutes a player for a number of minutes." )
 
 --Timed mute logic
@@ -44,10 +50,3 @@ local untmute = ulx.command( "Chat", "ulx untmute", ulx.untmute, "!untmute" )
 untmute:addParam{ type=ULib.cmds.PlayersArg }
 untmute:defaultAccess( ULib.ACCESS_ADMIN )
 untmute:help( "Unmute the player" )
-
---Hook to mute player
-hook.Add( "PlayerSay", "tmutehook", function(ply)
-	if (ply:GetPData( "tmuted" ) and ply:GetPData( "tmuted" ) ~= 0 and ply:GetPData( "tmuted" ) ~= "0" ) then
-		return ""
-	end
-end)
