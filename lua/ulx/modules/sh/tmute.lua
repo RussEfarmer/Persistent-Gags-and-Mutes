@@ -2,7 +2,6 @@
 -- Created by RussEfarmer on 11/26/2020 for Dinklebergs Gmod
 -- These commands are adapted from the votemute and votegag commands in cobalt77's "Custom-ULX-Commands" package (https://github.com/cobalt77/Custom-ULX-Commands)
 
---ULX tmute command
 --Hook to mute player
 hook.Add( "PlayerSay", "tmutehook", function(ply)
 	if (ply:GetPData( "tmuted" ) and ply:GetPData( "tmuted" ) ~= 0 and ply:GetPData( "tmuted" ) ~= "0" ) then
@@ -10,6 +9,7 @@ hook.Add( "PlayerSay", "tmutehook", function(ply)
 	end
 end)
 
+--ULX tmute command
 function ulx.tmute( calling_ply, target_ply, minutes)
 	minutes = math.ceil(minutes)
 	target_ply:SetPData("tmuted", minutes)
