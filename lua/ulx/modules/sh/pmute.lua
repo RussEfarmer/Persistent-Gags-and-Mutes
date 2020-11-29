@@ -1,6 +1,6 @@
 
 -- Created by RussEfarmer on 11/26/2020 for Dinklebergs Gmod
--- These commands are adapted from the votemute and votegag commands in cobalt77's "Custom-ULX-Commands" package (https://github.com/cobalt77/Custom-ULX-Commands)
+-- These commands are adapted from the votemute, votegag and pgag commands in cobalt77's "Custom-ULX-Commands" package (https://github.com/cobalt77/Custom-ULX-Commands)
 
 --Hook to mute player
 hook.Add( "PlayerSay", "pmutehook", function(ply)

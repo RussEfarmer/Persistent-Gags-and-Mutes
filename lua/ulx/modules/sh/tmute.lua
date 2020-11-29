@@ -1,6 +1,6 @@
 
 -- Created by RussEfarmer on 11/26/2020 for Dinklebergs Gmod
--- These commands are adapted from the votemute and votegag commands in cobalt77's "Custom-ULX-Commands" package (https://github.com/cobalt77/Custom-ULX-Commands)
+-- These commands are adapted from the votemute, votegag and pgag commands in cobalt77's "Custom-ULX-Commands" package (https://github.com/cobalt77/Custom-ULX-Commands)
 
 --Hook to mute player
 if SERVER then
@@ -62,12 +62,9 @@ function ulx.printtmutes(calling_ply)
 			table.insert(timedMutedPlayers, v:Nick())
 		end
 	end
-	
 	local message = table.concat(timedMutedPlayers, ", ")
 	ulx.fancyLog({calling_ply}, "Players currently with mutes: #s", message)
 end
-
-
 local printtmutes = ulx.command( "Chat", "ulx printtmutes", ulx.printtmutes, "!printtmutes", true )
 printtmutes:defaultAccess( ULib.ACCESS_ADMIN )
 printtmutes:help("Lists players who are connected and have mutes.")
