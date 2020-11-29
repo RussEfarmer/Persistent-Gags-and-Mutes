@@ -56,7 +56,6 @@ untmute:help( "Unmute the player" )
 --ULX printtmutes command
 function ulx.printtmutes(calling_ply)
 	local timedMutedPlayers = {}
-	
 	for k,v in pairs(player.GetHumans()) do
 		if v:GetPData("tmuted") then
 			table.insert(timedMutedPlayers, v:Nick())
