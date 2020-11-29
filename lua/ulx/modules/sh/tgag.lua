@@ -3,11 +3,13 @@
 -- These commands are adapted from the votemute, votegag and pgag commands in cobalt77's "Custom-ULX-Commands" package (https://github.com/cobalt77/Custom-ULX-Commands)
 
 --Hook to gag players
-hook.Add("PlayerCanHearPlayersVoice", "tgaghook", function(listener, talker)
-	local gag = talker.tgagged
-	if gag then return false end
-end)
-
+if SERVER then
+	hook.Remove("PlayerCanHearPlayersVoice", "tgaghook")
+	hook.Add("PlayerCanHearPlayersVoice", "tgaghook", function(listener, talker)
+		local gag = talker.tgagged
+		if gag then return false end
+	end)
+end
 --ULX tgag command
 function ulx.tgag( calling_ply, target_ply, minutes)
 	minutes = math.ceil(minutes)
