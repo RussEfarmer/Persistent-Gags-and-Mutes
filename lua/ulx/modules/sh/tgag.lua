@@ -6,16 +6,22 @@
 if SERVER then
 	hook.Remove("PlayerCanHearPlayersVoice", "tgaghook")
 	hook.Add("PlayerCanHearPlayersVoice", "tgaghook", function(listener, talker)
-		local gag = talker.tgagged
-		if gag then return false end
+		if talker.tgagged then return false end
 	end)
 end
+
+--Hook to handle player reconnects
+hook.Remove("PlayerAuthed", "tgagretryhook")
+hook.Add("PlayerAuthed", "tgagretryhook", function(ply)
+	if ply:GetPData("tgagged") then
+		ply.tgagged = true
+	end
+end)
+
 --ULX tgag command
 function ulx.tgag( calling_ply, target_ply, minutes)
 	minutes = math.ceil(minutes)
-	ULib.tsay( nil, "Command states player should have "..minutes.." gag minutes")
 	target_ply:SetPData("tgagged", minutes)
-	ULib.tsay( nil, "Player now has "..tostring(target_ply:GetPData("tgagged")).." gag minutes on record")
 	target_ply.tgagged = true
 	ulx.fancyLogAdmin( calling_ply, "#A has gagged #T for #i minute(s)", target_ply, minutes )
 end
@@ -33,11 +39,8 @@ timer.Create( "tgagtimer", 60, 0, function()
 		if ( gag and gag != "0") then
 			if ( not v.tgagged ) then
 				v.tgagged = true
-				ULib.tsay( nil, "Player was missing tgagged attribute")
 			end
-			ULib.tsay( nil, "Player had "..tostring(v:GetPData("tgagged")).." gag minutes")
 			v:SetPData( "tgagged", tonumber( gag ) - 1 )
-			ULib.tsay( nil, "Player now has "..tostring(v:GetPData("tgagged")).." gag minutes")
 			timer.Simple( 0.5, function()
 				local gag = v:GetPData( "tgagged" )
 				if gag == "0" then
@@ -55,10 +58,8 @@ function ulx.untgag( calling_ply, target_plys )
 	ulx.fancyLogAdmin( calling_ply, "#A ungagged #T", target_plys )
 	for k,v in pairs( target_plys ) do
 		if ( v:GetPData( "tgagged" ) and v:GetPData( "tgagged" ) ~= 0 and v:GetPData( "tgagged" ) ~= "0" ) then
-			ULib.tsay( nil, "Player has "..tostring(v:GetPData("tgagged")).." gag minutes")
 			v:RemovePData( "tgagged" )
 			v.tgagged = nil
-			ULib.tsay( nil, "Player now has "..tostring(v:GetPData("tgagged")).." gag minutes")
 		end
 	end
 end
