@@ -44,9 +44,8 @@ timer.Create( "tgagtimer", 60, 0, function()
 			timer.Simple( 0.5, function()
 				local gag = v:GetPData( "tgagged" )
 				if gag == "0" then
+					RunConsoleCommand("ulx", "untgag", v:Nick())
 					v:RemovePData( "tgagged" )
-					v.tgagged = nil
-					ULib.tsay( nil, v:Nick() .. " was auto-ungagged." )
 				end
 			end )
 		end
