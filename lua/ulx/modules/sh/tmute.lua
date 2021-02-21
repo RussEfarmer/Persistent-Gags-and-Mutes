@@ -1,4 +1,3 @@
-
 -- Created by RussEfarmer on 11/26/2020 for Dinklebergs Gmod
 -- These commands are adapted from the votemute, votegag and pgag commands in cobalt77's "Custom-ULX-Commands" package (https://github.com/cobalt77/Custom-ULX-Commands)
 
@@ -31,8 +30,8 @@ timer.Create( "tmutetimer", 60, 0, function()
 			v:SetPData( "tmuted", tonumber( v:GetPData( "tmuted" ) ) - 1 )	
 			timer.Simple( 0.5, function()
 				if v:GetPData( "tmuted" ) == 0 or v:GetPData( "tmuted" ) == "0" then	
-					v:RemovePData( "tmuted" )	
-					ULib.tsay( nil, v:Nick() .. " was auto-unmuted." )	
+					RunConsoleCommand("ulx","untmute", v:Nick())
+					v:RemovePData( "tmuted")	
 				end	
 			end )
 		end
